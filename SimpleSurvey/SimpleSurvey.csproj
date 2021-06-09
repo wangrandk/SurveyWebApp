@@ -64,6 +64,7 @@
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -80,6 +81,7 @@
     <Content Include="ManageQuestions.aspx" />
     <Content Include="ManageSurveys.aspx" />
     <Content Include="SurveyForm.aspx" />
+    <Content Include="SurveyResults.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -115,6 +117,13 @@
     </Compile>
     <Compile Include="SurveyForm.aspx.designer.cs">
       <DependentUpon>SurveyForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyResults.aspx.cs">
+      <DependentUpon>SurveyResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SurveyResults.aspx.designer.cs">
+      <DependentUpon>SurveyResults.aspx</DependentUpon>
     </Compile>
     <Compile Include="SurveysManager.cs" />
   </ItemGroup>

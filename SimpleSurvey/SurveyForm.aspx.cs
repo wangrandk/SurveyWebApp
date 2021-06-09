@@ -145,5 +145,21 @@ namespace SimpleSurvey
             }
             return response;
         }
+
+        protected void btbSwitch1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManageQuestions.aspx");
+        }
+
+        protected void btbSwitch2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManageSurveys.aspx");
+        }
+
+        protected void btbSwitch3_Click(object sender, EventArgs e)
+        {
+            //Response.Redirect("SurveyResults.aspx");
+            Server.Transfer("SurveyResults.aspx");
+        }
     }
 }

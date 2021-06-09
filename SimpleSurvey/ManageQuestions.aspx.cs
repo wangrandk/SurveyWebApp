@@ -34,5 +34,15 @@ namespace SimpleSurvey
                 context.SaveChanges();
             }
         }
+
+        protected void btbSwitch1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManageSurveys.aspx");
+        }
+
+        protected void btbSwitch2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("SurveyForm.aspx");
+        }
     }
 }

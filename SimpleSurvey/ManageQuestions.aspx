@@ -19,6 +19,24 @@
         <table cellpadding="2" class="style1">
             <tr>
                 <td style="width: 25%; text-align: left;">
+                <asp:Button ID="btbSwitch1" Text="Jump To Manage Surveys" runat="server" CausesValidation="False"  OnClick="btbSwitch1_Click" />
+                </td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td style="width: 25%; text-align: left;">
+                <asp:Button ID="btbSwitch2" Text="Jump To Survey Form" runat="server" CausesValidation="False"  OnClick="btbSwitch2_Click" />
+                </td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td style="width: 25%; text-align: left;">
                     &nbsp;</td>
                 <td>
                     &nbsp;</td>
