@@ -82,6 +82,7 @@
     <Content Include="ManageSurveys.aspx" />
     <Content Include="SurveyForm.aspx" />
     <Content Include="SurveyResults.aspx" />
+    <Content Include="UserRegistration.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -126,6 +127,13 @@
       <DependentUpon>SurveyResults.aspx</DependentUpon>
     </Compile>
     <Compile Include="SurveysManager.cs" />
+    <Compile Include="UserRegistration.aspx.cs">
+      <DependentUpon>UserRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserRegistration.aspx.designer.cs">
+      <DependentUpon>UserRegistration.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

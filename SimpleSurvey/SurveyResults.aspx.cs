@@ -9,9 +9,10 @@ namespace SimpleSurvey
 {
     public partial class SurveyResults : System.Web.UI.Page
     {
+        SurveyAppConString context;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            context = new SurveyAppConString();
         }
 
         protected void btbSwitch_Click(object sender, EventArgs e)
