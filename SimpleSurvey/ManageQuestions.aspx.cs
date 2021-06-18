@@ -44,5 +44,15 @@ namespace SimpleSurvey
         {
             Response.Redirect("SurveyForm.aspx");
         }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void txtTitle_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

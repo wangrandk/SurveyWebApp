@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Data;
 using System.ComponentModel;
-
+using System.Web.Security;
 
 namespace SimpleSurvey
 {
@@ -19,6 +19,21 @@ namespace SimpleSurvey
 
         }
 
+        private void KeepUserSession(string username, string password, string role)
+        {
+            this.Session["USER_NAME"] = username;
+            this.Session["PASSWORD"] = password;
+            this.Session["ROLE"] = role;
+            this.Session["TIME_OF_LOGIN"] = DateTime.UtcNow;
+
+            //using FormsAuthentication, then the username can be stored onto the session in the same way you're telling the FormsAuthentication system that current session should be transformed from non-authenticated to authenticated:
+            FormsAuthentication.RedirectFromLoginPage(this.tbxname.Text, createPersistentCookie: false);
+
+            // wait 10 seconds, then jump to the survey form page
+            System.Threading.Thread.Sleep(3000);
+            Response.Redirect("SurveyForm.aspx");
+        }
+       
         protected void btSubmit_Click(object sender, EventArgs e)
         {
             SqlConnection con = new SqlConnection(@"Data Source=localhost\SQLEXPRESS;Initial Catalog=SurveyApp;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework");
@@ -57,6 +72,10 @@ namespace SimpleSurvey
                 Response.Write("<h2>role already exist</h2>");
 
             }
+
+            // Keep user in the session
+            this.KeepUserSession(tbxname.Text, tbxpw.Text, DropDownList1.SelectedItem.Value);
+
         }
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -31,6 +32,7 @@ namespace SimpleSurvey
             ddlSurveys.DataTextField = "Title";
             ddlSurveys.DataValueField = "ID";
             ddlSurveys.DataBind();
+            TextBox1.Text = (string)this.Session["USER_NAME"];
         }
 
         protected void ddlSurveys_SelectedIndexChanged(object sender, EventArgs e)
@@ -119,7 +121,34 @@ namespace SimpleSurvey
                     foreach (TableRow tr in tbl.Rows)
                     {
                         Survey_Response sres = new Survey_Response();
-                        sres.FilledBy = 3;
+
+                        // get UserID by UserName
+                        SqlDataReader reader;
+                        
+                        string un =  (string) this.Session["USER_NAME"];
+                        String querytxt = $"select ID from [dbo].[Users] where UserName = 'Christoffer'";
+                        SqlConnection con = new SqlConnection(@"Data Source=localhost\SQLEXPRESS;Initial Catalog=SurveyApp;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework");
+                        SqlCommand cmd = new SqlCommand(querytxt, con);
+                        con.Open();
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                Int32 ID = Int32.Parse(dr.GetValue(0).ToString());
+                                sres.FilledBy = ID;
+                            }
+                        }
+                        //Int32 ID = Convert.ToInt32(cmd.ExecuteScalar());
+                        cmd.Dispose();
+                        int i = cmd.ExecuteNonQuery();
+                        con.Close();                    
+                        if (i ==1)
+                            Response.Write("<b>Current user: </b>" + un + "   <b>UserID: </b>" + ID);
+                        Response.Write("<b>User not found: </b>");
+                        
+
+
+                        //sres.FilledBy = ID;
                         sres.SurveyID = surveyid;
                         sres.QuestionID = Convert.ToInt32(tr.Cells[0].Attributes["ID"]);
                         TableCell tc = tr.Cells[1];
@@ -160,6 +189,11 @@ namespace SimpleSurvey
         {
             //Response.Redirect("SurveyResults.aspx");
             Server.Transfer("SurveyResults.aspx");
+        }
+
+        protected void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+        
         }
     }
 }

@@ -53,7 +53,7 @@
                 <td style="width: 25%; text-align: left;">
                     Title</td>
                 <td>
-                    <asp:TextBox ID="txtTitle" runat="server" Width="40%"></asp:TextBox>
+                    <asp:TextBox ID="txtTitle" runat="server" Width="40%" OnTextChanged="txtTitle_TextChanged"></asp:TextBox>
                 </td>
             </tr>
             <tr>

@@ -10,6 +10,12 @@
         {
             width: 100%;
         }
+        .auto-style1 {
+            width: 606px;
+        }
+        .auto-style2 {
+            margin-left: 95px;
+        }
     </style>
 </head>
 <body>
@@ -21,23 +27,25 @@
                 <td style="width: 25%; text-align: left;">
                 <asp:Button ID="btbSwitch1" Text="Jump To Manage Questions" runat="server" CausesValidation="False"  OnClick="btbSwitch1_Click" />
                 </td>
-                <td>
+                <td class="auto-style1">
                     &nbsp;</td>
                 <td>
-                    &nbsp;</td>
+                    <p>Current User:<asp:TextBox ID="TextBox1" runat="server" CssClass="auto-style2" Height="16px" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
+                    </p> 
+                </td>
             </tr>
              <tr>
              <td style="width: 25%; text-align: left;">
                   <asp:Button ID="btbSwitch2" Text="Jump To Manage Surveys" runat="server" CausesValidation="False"  OnClick="btbSwitch2_Click" />
                     &nbsp;</td>
-                <td>
+                <td class="auto-style1">
                     &nbsp;</td>        
             </tr>
             
             <tr>
                 <td style="width: 25%; text-align: left;">
                     Select Survey</td>
-                <td>
+                <td class="auto-style1">
                     <asp:DropDownList ID="ddlSurveys" runat="server" AutoPostBack="True" 
                         onselectedindexchanged="ddlSurveys_SelectedIndexChanged" Width="41%">
                     </asp:DropDownList>
@@ -52,7 +60,7 @@
             <tr>
                 <td style="width: 25%; text-align: left;">
                     &nbsp;</td>
-                <td>
+                <td class="auto-style1">
                     <asp:Button ID="btnSubmit" runat="server" Enabled="False" 
                         onclick="btnSubmit_Click" Text="Submit" />
                     <asp:Button ID="btnCancel" runat="server" CausesValidation="False" 
@@ -62,14 +70,14 @@
             <tr>
                   <td style="width: 25%; text-align: left;">
                     &nbsp;</td>
-                <td>
+                <td class="auto-style1">
                     &nbsp;</td>
             </tr>
             <tr>
                 <td style="width: 25%; text-align: left;">
                 <asp:Button ID="btbSwitch3" Text="Jump To Survey Results" runat="server" CausesValidation="False"  OnClick="btbSwitch3_Click" />
                 </td>
-                <td>
+                <td class="auto-style1">
                     &nbsp;</td>
                 <td>
                     &nbsp;</td>
