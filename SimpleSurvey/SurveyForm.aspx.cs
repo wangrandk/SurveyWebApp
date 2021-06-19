@@ -108,6 +108,7 @@ namespace SimpleSurvey
             foreach (Survey_Response sres in response)
                 context.AddToSurvey_Response(sres);
             context.SaveChanges();
+            Server.Transfer("SurveyResults.aspx");
         }
 
         private List<Survey_Response> GetSurveyReponse()
@@ -125,30 +126,30 @@ namespace SimpleSurvey
                         // get UserID by UserName
                         SqlDataReader reader;
                         
-                        string un =  (string) this.Session["USER_NAME"];
-                        String querytxt = $"select ID from [dbo].[Users] where UserName = 'Christoffer'";
+                        string username =  (string) this.Session["USER_NAME"];
+                        //String querytxt = $"select ID from [dbo].[Users] where UserName = {un}";
+                        String querytxt = string.Format("select ID from [dbo].[Users] where UserName = '{0}'", username.Trim());
                         SqlConnection con = new SqlConnection(@"Data Source=localhost\SQLEXPRESS;Initial Catalog=SurveyApp;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework");
                         SqlCommand cmd = new SqlCommand(querytxt, con);
                         con.Open();
-                        using (SqlDataReader dr = cmd.ExecuteReader())
-                        {
-                            while (dr.Read())
-                            {
-                                Int32 ID = Int32.Parse(dr.GetValue(0).ToString());
-                                sres.FilledBy = ID;
-                            }
-                        }
-                        //Int32 ID = Convert.ToInt32(cmd.ExecuteScalar());
+                        //using (SqlDataReader dr = cmd.ExecuteReader())
+                        //{
+                        //    while (dr.Read())
+                        //    {
+                        //        Int32 ID = Int32.Parse(dr.GetValue(0).ToString());
+                        //        sres.FilledBy = ID;
+                        //    }
+                        //}
+                        Int32 ID = Convert.ToInt32(cmd.ExecuteScalar());
                         cmd.Dispose();
                         int i = cmd.ExecuteNonQuery();
                         con.Close();                    
-                        if (i ==1)
-                            Response.Write("<b>Current user: </b>" + un + "   <b>UserID: </b>" + ID);
-                        Response.Write("<b>User not found: </b>");
+                        //if (i ==1)
+                        //    Response.Write("<b>Current user: </b>" + un + "   <b>UserID: </b>" + ID);
+                        //Response.Write("<b>User not found: </b>");
                         
 
-
-                        //sres.FilledBy = ID;
+                        sres.FilledBy = ID;
                         sres.SurveyID = surveyid;
                         sres.QuestionID = Convert.ToInt32(tr.Cells[0].Attributes["ID"]);
                         TableCell tc = tr.Cells[1];

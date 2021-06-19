@@ -31,7 +31,7 @@ namespace SimpleSurvey
             FormsAuthentication.RedirectFromLoginPage(this.tbxname.Text, createPersistentCookie: false);
 
             // wait 10 seconds, then jump to the survey form page
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
             Response.Redirect("SurveyForm.aspx");
         }
          
