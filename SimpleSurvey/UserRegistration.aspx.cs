@@ -9,6 +9,7 @@ using System.Text;
 using System.Data;
 using System.ComponentModel;
 using System.Web.Security;
+using System.Security.Cryptography;
 
 namespace SimpleSurvey
 {
@@ -33,14 +34,14 @@ namespace SimpleSurvey
             System.Threading.Thread.Sleep(3000);
             Response.Redirect("SurveyForm.aspx");
         }
-       
+         
         protected void btSubmit_Click(object sender, EventArgs e)
         {
             SqlConnection con = new SqlConnection(@"Data Source=localhost\SQLEXPRESS;Initial Catalog=SurveyApp;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework");
             SqlCommand cmd = new SqlCommand("sp_insertUser", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@name", tbxname.Text);
-            cmd.Parameters.AddWithValue("@password", tbxpw.Text);
+            cmd.Parameters.AddWithValue("@password", ComputeHash(tbxpw.Text));
             cmd.Parameters.AddWithValue("@role", DropDownList1.SelectedItem.Value);
             con.Open();
             int i = cmd.ExecuteNonQuery();
@@ -78,6 +79,17 @@ namespace SimpleSurvey
 
         }
 
+        private string ComputeHash(string input)
+        {
+            string output;
+            using(SHA256 mySHA256 = SHA256.Create() )
+            {
+                byte[] secBytes = Encoding.ASCII.GetBytes(input);
+                byte[] hashValue = mySHA256.ComputeHash(secBytes);
+                output = Encoding.ASCII.GetString(hashValue);
+            }
+            return output;
+        }
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
 

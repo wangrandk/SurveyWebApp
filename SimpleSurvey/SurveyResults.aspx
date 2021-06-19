@@ -49,7 +49,7 @@ sr.SurveyID
 from Survey_Response sr 
 join Surveys s on s.id = sr.surveyid
 join Questions q on q.id = sr.questionid
-JOIN Users u ON s.CreatedBy = u.id"></asp:SqlDataSource>
+JOIN Users u ON sr.filledby= u.id"></asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SurveyAppConnectionString %>" SelectCommand="with a as(
 select 
 sr.SurveyID

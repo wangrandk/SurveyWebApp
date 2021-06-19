@@ -78,6 +78,10 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\DSB_logo.png" />
+    <Content Include="img\metro_logo.png" />
+    <Content Include="img\movia_logo.png" />
+    <Content Include="img\transportation_map.jpg" />
     <Content Include="ManageQuestions.aspx" />
     <Content Include="ManageSurveys.aspx" />
     <Content Include="SurveyForm.aspx" />
@@ -112,6 +116,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SurveyAppContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="SurveyAppContext.Views.cs" />
     <Compile Include="SurveyForm.aspx.cs">
       <DependentUpon>SurveyForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
