@@ -1,0 +1,213 @@
+USE [master]
+GO
+/****** Object:  Database [SurveyApp]    Script Date: 04-06-2021 14:58:20 ******/
+CREATE DATABASE [SurveyApp01]
+CONTAINMENT = NONE
+ON  PRIMARY 
+( NAME = N'SurveyApp', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\SurveyApp.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+LOG ON 
+( NAME = N'SurveyApp_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\SurveyApp_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [SurveyApp] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [SurveyApp].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [SurveyApp] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [SurveyApp] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [SurveyApp] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [SurveyApp] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [SurveyApp] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [SurveyApp] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [SurveyApp] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [SurveyApp] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [SurveyApp] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [SurveyApp] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [SurveyApp] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [SurveyApp] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [SurveyApp] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [SurveyApp] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [SurveyApp] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [SurveyApp] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [SurveyApp] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [SurveyApp] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [SurveyApp] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [SurveyApp] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [SurveyApp] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [SurveyApp] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [SurveyApp] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [SurveyApp] SET  MULTI_USER 
+GO
+ALTER DATABASE [SurveyApp] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [SurveyApp] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [SurveyApp] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [SurveyApp] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [SurveyApp] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [SurveyApp] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [SurveyApp] SET QUERY_STORE = OFF
+GO
+USE [SurveyApp]
+GO
+/****** Object:  Table [dbo].[Questions]    Script Date: 04-06-2021 14:58:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Questions](
+            [ID] [int] IDENTITY(1,1) NOT NULL,
+            [Text] [varchar](200) NOT NULL,
+            [QuestionType] [varchar](200) NOT NULL,
+            [Options] [varchar](2000) NOT NULL,
+CONSTRAINT [PK_Questions] PRIMARY KEY CLUSTERED 
+(
+            [ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Roles]    Script Date: 04-06-2021 14:58:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Roles](
+            [ID] [int] IDENTITY(1,1) NOT NULL,
+            [Name] [varchar](200) NOT NULL,
+CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+(
+            [ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Survey_Questions]    Script Date: 04-06-2021 14:58:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Survey_Questions](
+            [ID] [int] NOT NULL,
+            [SurveyID] [int] NOT NULL,
+            [QuestionID] [int] NOT NULL,
+            [OrderId] [int] NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SurveyResponse]    Script Date: 04-06-2021 14:58:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SurveyResponse](
+            [ID] [int] NOT NULL,
+            [SurveyID] [int] NOT NULL,
+            [QuestionID] [int] NOT NULL,
+            [Response] [varchar](200) NOT NULL,
+            [FilledBy] [int] NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Surveys]    Script Date: 04-06-2021 14:58:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Surveys](
+            [ID] [int] IDENTITY(1,1) NOT NULL,
+            [Title] [varchar](200) NULL,
+            [Description] [varchar](200) NOT NULL,
+            [CreatedOn] [datetime] NOT NULL,
+            [ExpiresOn] [datetime] NULL,
+            [CreatedBy] [int] NOT NULL,
+            [Publish] [bit] NOT NULL,
+CONSTRAINT [PK_Surveys] PRIMARY KEY CLUSTERED 
+(
+            [ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users]    Script Date: 04-06-2021 14:58:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+            [ID] [int] IDENTITY(1,1) NOT NULL,
+            [FirstName] [varchar](200) NOT NULL,
+            [LastName] [varchar](200) NULL,
+            [UserName] [varchar](200) NOT NULL,
+            [Password] [varchar](200) NOT NULL,
+            [Role] [int] NOT NULL,
+CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+            [ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Survey_Questions]  WITH CHECK ADD  CONSTRAINT [FK_Survey_Questions_Questions] FOREIGN KEY([QuestionID])
+REFERENCES [dbo].[Questions] ([ID])
+GO
+ALTER TABLE [dbo].[Survey_Questions] CHECK CONSTRAINT [FK_Survey_Questions_Questions]
+GO
+ALTER TABLE [dbo].[Survey_Questions]  WITH CHECK ADD  CONSTRAINT [FK_Survey_Questions_Surveys] FOREIGN KEY([SurveyID])
+REFERENCES [dbo].[Surveys] ([ID])
+GO
+ALTER TABLE [dbo].[Survey_Questions] CHECK CONSTRAINT [FK_Survey_Questions_Surveys]
+GO
+ALTER TABLE [dbo].[SurveyResponse]  WITH CHECK ADD  CONSTRAINT [FK_SurveyResponse_Questions] FOREIGN KEY([QuestionID])
+REFERENCES [dbo].[Questions] ([ID])
+GO
+ALTER TABLE [dbo].[SurveyResponse] CHECK CONSTRAINT [FK_SurveyResponse_Questions]
+GO
+ALTER TABLE [dbo].[SurveyResponse]  WITH CHECK ADD  CONSTRAINT [FK_SurveyResponse_Surveys] FOREIGN KEY([SurveyID])
+REFERENCES [dbo].[Surveys] ([ID])
+GO
+ALTER TABLE [dbo].[SurveyResponse] CHECK CONSTRAINT [FK_SurveyResponse_Surveys]
+GO
+ALTER TABLE [dbo].[SurveyResponse]  WITH CHECK ADD  CONSTRAINT [FK_SurveyResponse_Users] FOREIGN KEY([FilledBy])
+REFERENCES [dbo].[Users] ([ID])
+GO
+ALTER TABLE [dbo].[SurveyResponse] CHECK CONSTRAINT [FK_SurveyResponse_Users]
+GO
+ALTER TABLE [dbo].[Surveys]  WITH CHECK ADD  CONSTRAINT [FK_Surveys_Users] FOREIGN KEY([CreatedBy])
+REFERENCES [dbo].[Users] ([ID])
+GO
+ALTER TABLE [dbo].[Surveys] CHECK CONSTRAINT [FK_Surveys_Users]
+GO
+ALTER TABLE [dbo].[Users]  WITH CHECK ADD  CONSTRAINT [FK_Users_Roles] FOREIGN KEY([Role])
+REFERENCES [dbo].[Roles] ([ID])
+GO
+ALTER TABLE [dbo].[Users] CHECK CONSTRAINT [FK_Users_Roles]
+GO
+USE [master]
+GO
+ALTER DATABASE [SurveyApp] SET  READ_WRITE 
+GO
