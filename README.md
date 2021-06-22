@@ -13,5 +13,5 @@
   ![User session](images/usersession.PNG)
  
  - Result\
-  ![result](images/result.PNG)
+  ![result](images/result.png)
  
