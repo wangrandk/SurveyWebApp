@@ -5,4 +5,10 @@
   ![Data model](images/DataModel.PNG)  
  - Stored procedure
   ![Stored procedure](images/storedprocedure.PNG)
+  
+ - Hash password\
+  ![Hash password](images/hash.PNG)
+  
+ - User session\
+  ![User session](images/usersession.PNG)
  
